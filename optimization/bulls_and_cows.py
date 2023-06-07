@@ -45,7 +45,13 @@ def update_possible(correct_digits, position_possible, bulls, cows, guess_digits
             print(f"Eliminate digit {digit}", file=sys.stderr)
         if bulls == 0:
             position_possible[position, digit] = False
-            print(f"Exclude digit {digit} position {position}", file=sys.stderr)            
+            print(f"Exclude digit {digit} position {position}", file=sys.stderr)        
+
+    # Revert elimination, if cows count is equal to number length, we exclude all the rest digits 
+    if cows == number_length:
+        for digit in [d for d in digits if d not in guess_digits]:
+            position_possible[:, digit] = False
+            print(f"Eliminate digit {digit}", file=sys.stderr)
 
 guess_digits = None
 while True:
